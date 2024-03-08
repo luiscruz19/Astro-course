@@ -1,9 +1,9 @@
 ## 🚀 SpaceX Launch API Demo
-Este repositorio contiene un demo que utiliza la API de lanzamientos de SpaceX para obtener información sobre sus misiones. 
-La API proporciona datos detallados sobre las misiones pasadas y futuras, incluyendo información sobre cohetes, naves y más.
+This repository contains a demo that uses the SpaceX launch API to obtain information about its missions.
+The API provides detailed data on past and future missions, including information on rockets, spacecraft, and more.
 
 
-### Tecnologías utilizadas:
+### Used technology:
 * Astro
 * JavaScript
 * SpaceX API
