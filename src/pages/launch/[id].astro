@@ -1,0 +1,85 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import getLaunchByID from "../../services/launchs/get";
+import getLatestLaunches from "../../services/launchs/list";
+import Button from "../../components/Button.astro";
+
+const { id } = Astro.params;
+
+let launch;
+
+if (id) {
+    launch = await getLaunchByID({ id });
+}
+
+export async function getStaticPaths() {
+    const launches = await getLatestLaunches();
+    if (Array.isArray(launches)) {
+        return launches.map(({ id }) => ({
+            params: { id: id },
+        }));
+    } else {
+        return [];
+    }
+}
+const {
+    success,
+    links: {
+        patch: { small: img },
+    },
+    flight_number: fligthNumber,
+    details,
+} = launch;
+---
+
+<Layout title={`Lanzamiento ${id}`}>
+    <article class="flex flex-col gap-y-10 px-20">
+        <picture class="flex justify-center p-4">
+            <img
+                class="mb-5 rounded-lg"
+                src={img}
+                alt={`Patch for launch ${id}`}
+            />
+        </picture>
+        <header class="p-4 flex-grow text-center">
+            <span
+                class:list={[
+                    "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+                    {
+                        "bg-green-400 text-green-900": success,
+                        "bg-red-400 text-red-900": !success,
+                    },
+                ]}
+            >
+                {success ? "Success" : "Failure"}
+            </span>
+            <h2 class="my-7 text-2xl font-bold tracking-tight text-white">
+                Flight #{fligthNumber}
+            </h2>
+
+            <p class="mb-4 font-light text-gray-400">
+                {details}
+            </p>
+        </header>
+
+        <footer class="flex flex-col mx-auto items-center justify-center my-14">
+            <Button href="/">
+                <svg
+                    slot="after"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                    ></path><path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1"
+                    ></path></svg
+                >
+                Volver
+            </Button>
+        </footer>
+    </article>
+</Layout>
