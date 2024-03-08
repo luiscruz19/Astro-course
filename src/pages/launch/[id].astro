@@ -22,14 +22,6 @@ export async function getStaticPaths() {
         return [];
     }
 }
-const {
-    success,
-    links: {
-        patch: { small: img },
-    },
-    flight_number: fligthNumber,
-    details,
-} = launch;
 ---
 
 <Layout title={`Lanzamiento ${id}`}>
@@ -37,7 +29,7 @@ const {
         <picture class="flex justify-center p-4">
             <img
                 class="mb-5 rounded-lg"
-                src={img}
+                src={launch?.links?.patch?.small}
                 alt={`Patch for launch ${id}`}
             />
         </picture>
@@ -46,19 +38,19 @@ const {
                 class:list={[
                     "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
                     {
-                        "bg-green-400 text-green-900": success,
-                        "bg-red-400 text-red-900": !success,
+                        "bg-green-400 text-green-900": launch?.success,
+                        "bg-red-400 text-red-900": !launch?.success,
                     },
                 ]}
             >
-                {success ? "Success" : "Failure"}
+                {launch?.success ? "Success" : "Failure"}
             </span>
             <h2 class="my-7 text-2xl font-bold tracking-tight text-white">
-                Flight #{fligthNumber}
+                Flight #{launch?.flight_number}
             </h2>
 
             <p class="mb-4 font-light text-gray-400">
-                {details}
+                {launch?.details}
             </p>
         </header>
 

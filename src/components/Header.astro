@@ -1,8 +1,9 @@
 ---
 import Button from "./Button.astro";
+import Counter from "./Counter.jsx";
 ---
 
-<header class="py-8 px-4 mx-auto lg:py-16 lg:px-6">
+<header transition:persist class="py-8 px-4 mx-auto lg:py-16 lg:px-6">
     <div class="mx-auto text-center mb-8 lg:mb-16">
         <h2 class="mb-4 text-5xl tracking-tight font-extrabold text-white">
             SpaceX launches
@@ -68,4 +69,5 @@ import Button from "./Button.astro";
             >Los mas viejos
         </Button>
     </nav>
+    <Counter client:visible />
 </header>
